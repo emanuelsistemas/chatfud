@@ -39,13 +39,13 @@ const CriarEmpresa: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <TextField
           fullWidth
-          variant="filled"
           label="Segmento"
           name="segmento"
           value={formData.segmento}
           onChange={handleChange}
           margin="normal"
           required
+          variant="outlined"
         />
         <TextField
           fullWidth
