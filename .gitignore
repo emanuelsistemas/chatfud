@@ -1,4 +1,5 @@
 # Ambiente virtual
+chatfud_env/
 venv/
 
 # Arquivos de cache Python

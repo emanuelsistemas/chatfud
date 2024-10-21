@@ -1,12 +1,20 @@
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from marshmallow import ValidationError
 from src.api.extensions import db
 from src.api.models.usuarios import Usuario
+from src.api.schemas import usuario_schema, usuarios_schema
 
 usuario_bp = Blueprint('usuario', __name__)
 
 @usuario_bp.route('/usuarios', methods=['POST'])
+@jwt_required()
 def criar_usuario():
-    data = request.json
+    try:
+        data = usuario_schema.load(request.json)
+    except ValidationError as err:
+        return jsonify(err.messages), 400
+    
     novo_usuario = Usuario(
         nome=data['nome'],
         email=data['email'],
@@ -16,45 +24,62 @@ def criar_usuario():
     novo_usuario.set_senha(data['senha'])
     db.session.add(novo_usuario)
     db.session.commit()
-    return jsonify({"message": "Usuário criado com sucesso", "id": novo_usuario.id}), 201
+    return jsonify(usuario_schema.dump(novo_usuario)), 201
 
 @usuario_bp.route('/usuarios', methods=['GET'])
+@jwt_required()
 def listar_usuarios():
     usuarios = Usuario.query.all()
-    return jsonify([{
-        "id": u.id,
-        "nome": u.nome,
-        "email": u.email,
-        "tipo_usuario": u.tipo_usuario,
-        "codigo_chatfud": u.codigo_chatfud
-    } for u in usuarios]), 200
+    return jsonify(usuarios_schema.dump(usuarios)), 200
 
 @usuario_bp.route('/usuarios/<int:id>', methods=['GET'])
+@jwt_required()
 def obter_usuario(id):
     usuario = Usuario.query.get_or_404(id)
-    return jsonify({
-        "id": usuario.id,
-        "nome": usuario.nome,
-        "email": usuario.email,
-        "tipo_usuario": usuario.tipo_usuario,
-        "codigo_chatfud": usuario.codigo_chatfud
-    }), 200
+    return jsonify(usuario_schema.dump(usuario)), 200
 
 @usuario_bp.route('/usuarios/<int:id>', methods=['PUT'])
+@jwt_required()
 def atualizar_usuario(id):
     usuario = Usuario.query.get_or_404(id)
-    data = request.json
+    try:
+        data = usuario_schema.load(request.json, partial=True)
+    except ValidationError as err:
+        return jsonify(err.messages), 400
+    
     for key, value in data.items():
         if key == 'senha':
             usuario.set_senha(value)
         else:
             setattr(usuario, key, value)
     db.session.commit()
-    return jsonify({"message": "Usuário atualizado com sucesso"}), 200
+    return jsonify(usuario_schema.dump(usuario)), 200
 
 @usuario_bp.route('/usuarios/<int:id>', methods=['DELETE'])
+@jwt_required()
 def deletar_usuario(id):
     usuario = Usuario.query.get_or_404(id)
     db.session.delete(usuario)
     db.session.commit()
     return jsonify({"message": "Usuário deletado com sucesso"}), 200
+
+@usuario_bp.route('/registro', methods=['POST'])
+def registrar_usuario():
+    try:
+        data = usuario_schema.load(request.json)
+    except ValidationError as err:
+        return jsonify(err.messages), 400
+    
+    if Usuario.query.filter_by(email=data['email']).first():
+        return jsonify({"message": "Email já está em uso"}), 400
+    
+    novo_usuario = Usuario(
+        nome=data['nome'],
+        email=data['email'],
+        tipo_usuario='Usuario',  # Define o tipo padrão como 'Usuario'
+        codigo_chatfud=data['codigo_chatfud']
+    )
+    novo_usuario.set_senha(data['senha'])
+    db.session.add(novo_usuario)
+    db.session.commit()
+    return jsonify(usuario_schema.dump(novo_usuario)), 201
