@@ -1,22 +1,44 @@
-aniso8601==9.0.1
-blinker==1.8.2
-click==8.1.7
-flask==3.0.3
-Flask-JWT-Extended==4.6.0
-Flask-RESTful==0.3.10
-flask-sqlalchemy==3.1.1
-greenlet==3.1.1
-importlib-metadata==8.5.0
-itsdangerous==2.2.0
-jinja2==3.1.4
-MarkupSafe==2.1.5
-marshmallow==3.22.0
-packaging==24.1
-PyJWT==2.9.0
-PyMySQL==1.1.1
-pytz==2024.2
-six==1.16.0
-SQLAlchemy==2.0.36
-typing-extensions==4.12.2
-werkzeug==3.0.4
-zipp==3.20.2
+Aja como um especialista em desenvolvimento de software e instrutor de programação. Eu estou criando um sistema de delivery com IA, utilizando React para o frontend e Python para o backend. Vou aprender React e Python enquanto desenvolvo o projeto. Aqui estão os requisitos principais:
+
+Contexto do Projeto:
+O sistema terá automação de pedidos com IA, utilizando Groq.
+O pagamento será integrado com PIX.
+Haverá uma funcionalidade para identificação da chegada do entregador ao cliente.
+Objetivo:
+Preciso que você me guie passo a passo na criação desse projeto, com detalhes sobre:
+
+Configuração do Ambiente de Desenvolvimento:
+
+Como configurar o ambiente de desenvolvimento para React (frontend) e Python (backend) do zero.
+Explique como instalar as ferramentas necessárias, como Node.js, o React CLI, Python, e as bibliotecas relacionadas.
+Introdução a React e Python:
+
+Explique os conceitos básicos de React e Python, com exemplos práticos e progressivos para cada etapa. Proporcione desafios simples no início (como criar uma página de login) e depois avance para tópicos mais complexos.
+Automação de Pedidos com IA (Groq):
+
+Dê uma breve introdução ao framework Groq, explicando como ele pode ser usado para automação de pedidos no sistema de delivery.
+Forneça exemplos práticos de como integrar Groq no backend com Python e criar uma automação simples.
+Sugira passos incrementais para construir a automação completa ao longo do tempo.
+Integração com PIX para Pagamentos:
+
+Forneça exemplos de como integrar PIX ao backend Python, usando APIs disponíveis no Brasil.
+Explique como conectar essa funcionalidade ao frontend em React, sugerindo bibliotecas como axios para fazer requisições.
+Sugira melhores práticas de segurança ao lidar com transações financeiras.
+Funcionalidade de Identificação de Chegada do Entregador:
+
+Explique como implementar a funcionalidade de rastreamento e identificação do entregador, incluindo o uso de GPS ou APIs de geolocalização.
+Dê exemplos de como enviar notificações ao cliente, como via SMS ou notificações push.
+Sugira ferramentas ou APIs adequadas para essa funcionalidade.
+Comunicação entre Frontend e Backend:
+
+Instrua sobre como conectar o frontend (React) ao backend (Python), incluindo a criação de APIs REST.
+Dê exemplos de como usar bibliotecas como requests no backend e axios no frontend para facilitar a comunicação.
+Aprendizado Progressivo e Desafios:
+
+Ao longo das instruções, inclua desafios e exemplos práticos em cada etapa para reforçar o aprendizado.
+Sugira boas práticas de programação, como organização de código, uso de Git para versionamento, e dicas de performance.
+Me oriente passo a passo, como se estivesse ensinando alguém que está começando do zero com essas tecnologias. Além disso, me ajude a corrigir e entender os erros mais comuns durante o desenvolvimento.
+
+
+irei desenvolver inicialmente este projeto dentro da pasta "b_dev" pois terei outras como "b_beta" e "b_mais" essas pasta sao ambientes que eu irei criar para que quando eu possa estar desenvolvendo eu nao efete o producao, entao quando precisar instalar pacotes instale na raiz que seria a pasta do chatfud onde e a pasta principal do projeto.
+
