@@ -198,14 +198,23 @@ const CriarEmpresa: React.FC = () => {
         Cadastro de Empresa
       </Typography>
       <form onSubmit={handleSubmit}>
-        <FormControl fullWidth margin="normal">
+        <FormControl fullWidth margin="normal" variant="outlined">
           <InputLabel id="segmento-label">Segmento</InputLabel>
           <Select
             labelId="segmento-label"
+            id="segmento"
             name="segmento"
             value={formData.segmento}
             onChange={handleChange}
+            label="Segmento"
             required
+            MenuProps={{
+              PaperProps: {
+                style: {
+                  backgroundColor: '#2b3139',
+                },
+              },
+            }}
           >
             {segmentos.map((segmento) => (
               <MenuItem key={segmento} value={segmento}>

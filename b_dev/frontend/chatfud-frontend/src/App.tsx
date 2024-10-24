@@ -10,9 +10,6 @@ function App() {
 
   return (
     <div className="App">
-      <Helmet>
-        <title>C:hatFüd</title>
-      </Helmet>
       <h1 className="chatfud-title">C:hatFüd</h1>
       <CriarEmpresa />
     </div>

@@ -69,6 +69,7 @@ body {
 .criar-empresa-form .MuiSelect-select {
     background-color: #2b3139;
     color: #ffffff;
+    text-align: left;
 }
 
 /* Estilo para o menu do select */
@@ -77,7 +78,15 @@ body {
 }
 
 .criar-empresa-form .MuiMenuItem-root {
-    color: #ffffff;
+    color: #ffffff !important;
+}
+
+.criar-empresa-form .MuiSelect-icon {
+    color: #d73a49;
+}
+
+.criar-empresa-form .MuiSelect-select:focus {
+    background-color: #2b3139;
 }
 
 /* Estilo para os botões */
@@ -158,4 +167,27 @@ body {
     color: #ffffff;
     margin-bottom: 24px;
     font-size: 1.5rem;
+}
+
+.criar-empresa-form .MuiSelect-select,
+.criar-empresa-form .MuiMenuItem-root,
+.criar-empresa-form .MuiList-root {
+    color: #ffffff !important;
+}
+
+.criar-empresa-form .MuiPopover-paper {
+    background-color: #2b3139 !important;
+}
+
+.criar-empresa-form .MuiMenuItem-root:hover {
+    background-color: rgba(215, 58, 73, 0.1) !important;
+}
+
+.criar-empresa-form .MuiOutlinedInput-notchedOutline legend {
+    visibility: visible;
+    width: auto !important;
+}
+
+.criar-empresa-form .MuiSelect-outlined {
+    background-color: #2b3139;
 }
