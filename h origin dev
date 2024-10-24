@@ -1,0 +1,35 @@
+[33mcommit e32334fb6a2c352d25022bf150cc9ff7f3839ab0[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m)[m
+Author: Emanuel Souza <emanuel.sistemas@gmail.com>
+Date:   Tue Oct 22 13:35:02 2024 +0000
+
+    Mensagem do commit
+
+[33mcommit ca9eccce157d75cc5354d2631201d722bad31948[m[33m ([m[1;31morigin/dev[m[33m)[m
+Author: Emanuel Souza <emanuel.sistemas@gmail.com>
+Date:   Mon Oct 21 20:35:28 2024 +0000
+
+    Mensagem do commit
+
+[33mcommit 5c3f7d05c471117cf4ed25c1ddb7cc248b4a97e7[m
+Author: Emanuel Souza <emanuel.sistemas@gmail.com>
+Date:   Mon Oct 21 19:46:40 2024 +0000
+
+    Adicionado .gitignore e atualizado requirements.txt
+
+[33mcommit f384a43f6800334780f1413cba1fc6704250ac5c[m
+Author: Emanuel Souza <emanuel.sistemas@gmail.com>
+Date:   Sat Oct 19 10:20:16 2024 +0000
+
+    Adicionado .gitignore para excluir venv e outros arquivos desnecessários
+
+[33mcommit 9dee2acb4ab0c92dbb9427d8c230b5b7e09027f0[m
+Author: Emanuel Souza <emanuel.sistemas@gmail.com>
+Date:   Sat Oct 19 10:16:21 2024 +0000
+
+    Mensagem do commit
+
+[33mcommit 14cdf0522b36392a2b2f7798ab0e221019f76b70[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m, [m[1;32mbeta[m[33m)[m
+Author: Emanuel Souza <emanuel.sistemas@gmail.com>
+Date:   Fri Oct 18 13:15:25 2024 +0000
+
+    Commit inicial

@@ -1,5 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #151B23;
+}
+
 .App {
   text-align: center;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chatfud-title {
+  font-family: 'MuseoModerno', sans-serif;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Novo estilo para o container do formulário */
+.form-container {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 20px; /* Espaçamento entre o título e o formulário */
 }
 
 .App-logo {
