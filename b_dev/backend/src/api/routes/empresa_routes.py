@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash
 import secrets
 from sqlalchemy.exc import IntegrityError
 import logging
+import requests
 
 empresa_bp = Blueprint('empresa', __name__)
 
@@ -90,3 +91,35 @@ def inativar_empresa(id):
     empresa.status = 'Inativo'
     db.session.commit()
     return jsonify({"message": "Empresa inativada com sucesso"}), 200
+
+@empresa_bp.route('/cnpj/<string:cnpj>', methods=['GET'])
+def buscar_cnpj(cnpj):
+    try:
+        # Remove caracteres não numéricos do CNPJ
+        cnpj = ''.join(filter(str.isdigit, cnpj))
+        
+        # URL da API de consulta de CNPJ (exemplo usando a API da ReceitaWS)
+        url = f'https://www.receitaws.com.br/v1/cnpj/{cnpj}'
+        
+        response = requests.get(url)
+        data = response.json()
+        
+        if response.status_code == 200 and data.get('status') != 'ERROR':
+            return jsonify({
+                'razao_social': data.get('nome', ''),
+                'nome_fantasia': data.get('fantasia', ''),
+                'telefone': data.get('telefone', ''),
+                'email': data.get('email', ''),
+                'logradouro': data.get('logradouro', ''),
+                'numero': data.get('numero', ''),
+                'complemento': data.get('complemento', ''),
+                'bairro': data.get('bairro', ''),
+                'municipio': data.get('municipio', ''),
+                'uf': data.get('uf', ''),
+                'cep': data.get('cep', '')
+            }), 200
+        else:
+            return jsonify({'message': 'CNPJ não encontrado ou inválido'}), 404
+    except Exception as e:
+        current_app.logger.error(f"Erro ao buscar CNPJ: {str(e)}")
+        return jsonify({'message': 'Erro ao buscar informações do CNPJ'}), 500

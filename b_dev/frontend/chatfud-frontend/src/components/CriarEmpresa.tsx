@@ -14,8 +14,12 @@ import {
   Radio,
   SelectChangeEvent,
   InputAdornment,
-  IconButton
+  IconButton,
+  CircularProgress
 } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './CriarEmpresa.css';
 
 const segmentos = [
@@ -54,6 +58,7 @@ const CriarEmpresa: React.FC = () => {
   const [message, setMessage] = useState('');
   const isMounted = useRef(true);
   const cancelTokenRef = useRef<CancelTokenSource | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -113,10 +118,12 @@ const CriarEmpresa: React.FC = () => {
   };
 
   const handleSearchCNPJ = async () => {
-    if (formData.documento.length !== 18) {
-      setErrors(prev => ({ ...prev, documento: 'CNPJ inválido' }));
+    if (formData.tipo_documento !== 'CNPJ' || formData.documento.length !== 18) {
+      toast.error('Por favor, insira um CNPJ válido.');
       return;
     }
+
+    setIsLoading(true);
 
     if (cancelTokenRef.current) {
       cancelTokenRef.current.cancel('New request initiated');
@@ -124,19 +131,29 @@ const CriarEmpresa: React.FC = () => {
     cancelTokenRef.current = axios.CancelToken.source();
 
     try {
-      const response = await axios.get(`https://api.exemplo.com/cnpj/${formData.documento}`, {
+      const response = await axios.get(`/api/cnpj/${formData.documento.replace(/\D/g, '')}`, {
         cancelToken: cancelTokenRef.current.token
       });
+      
       if (isMounted.current) {
-        const { razao_social, nome_fantasia } = response.data;
-        setFormData(prev => ({ ...prev, razao_social, nome_fantasia }));
+        const { razao_social, nome_fantasia, telefone, email } = response.data;
+        setFormData(prev => ({ 
+          ...prev, 
+          razao_social, 
+          nome_fantasia, 
+          telefone: formatTelefone(telefone),
+          email
+        }));
+        toast.success('Informações da empresa carregadas com sucesso!');
       }
     } catch (error) {
       if (axios.isCancel(error)) {
         console.log('Request canceled:', error.message);
       } else if (isMounted.current) {
-        setErrors(prev => ({ ...prev, documento: 'Erro ao buscar CNPJ' }));
+        toast.error('Erro ao buscar informações do CNPJ. Por favor, tente novamente.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -176,6 +193,7 @@ const CriarEmpresa: React.FC = () => {
 
   return (
     <Box className="criar-empresa-form">
+      <ToastContainer position="top-right" autoClose={5000} />
       <Typography variant="h5" component="h2" gutterBottom>
         Cadastro de Empresa
       </Typography>
@@ -229,7 +247,7 @@ const CriarEmpresa: React.FC = () => {
                   onClick={handleSearchCNPJ}
                   aria-label="buscar CNPJ"
                 >
-                  <span role="img" aria-label="search">🔍</span>
+                  <SearchIcon />
                 </IconButton>
               </InputAdornment>
             ),
@@ -238,6 +256,22 @@ const CriarEmpresa: React.FC = () => {
             maxLength: formData.tipo_documento === 'CNPJ' ? 18 : 14
           }}
         />
+
+        <TextField
+          fullWidth
+          label="CNPJ"
+          value={formData.documento}
+          onChange={(e) => setFormData(prev => ({ ...prev, documento: e.target.value }))}
+          margin="normal"
+        />
+
+        <Button
+          onClick={handleSearchCNPJ}
+          disabled={formData.documento.length !== 18 || isLoading}
+          startIcon={isLoading ? <CircularProgress size={20} /> : null}
+        >
+          {isLoading ? 'Buscando...' : 'Buscar CNPJ'}
+        </Button>
 
         <TextField
           fullWidth
